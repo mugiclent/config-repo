@@ -1,0 +1,40 @@
+routes:
+  # ── Auth ─────────────────────────────────────────────────────────────────────
+  # All auth endpoints are public — clients hit these before they have a token.
+  # Covers: /login, /register, /verify-phone, /verify-2fa, /forgot-password,
+  #         /reset-password, /refresh, /logout, /logout-all, /register-device,
+  #         /accept-invite (also used by unauthenticated invited users)
+  - path: /api/v1/auth
+    target: http://katisha-user-service:3001
+    auth: false
+
+  # ── Users ─────────────────────────────────────────────────────────────────────
+  # /accept-invite is public (unauthenticated user clicking an invite link).
+  # All other /users/* endpoints require a valid JWT.
+  # Because prefix matching is first-match-wins, /users/accept-invite must come
+  # before the broader /users entry so it is never gated by JWT.
+  - path: /api/v1/users/accept-invite
+    target: http://katisha-user-service:3001
+    auth: false
+
+  - path: /api/v1/users
+    target: http://katisha-user-service:3001
+    auth: true
+
+  # ── Org applications ─────────────────────────────────────────────────────────
+  # Public endpoints for organisations applying to join the platform.
+  # /apply, /apply/documents/presigned-url, and /verify-contact are all
+  # unauthenticated (applicants have no account yet).
+  # Must come before /organizations so the more-specific prefix wins.
+  - path: /api/v1/organizations/apply
+    target: http://katisha-user-service:3001
+    auth: false
+
+  - path: /api/v1/organizations/verify-contact
+    target: http://katisha-user-service:3001
+    auth: false
+
+  # ── Organisations ─────────────────────────────────────────────────────────────
+  - path: /api/v1/organizations
+    target: http://katisha-user-service:3001
+    auth: true
