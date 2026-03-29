@@ -17,6 +17,10 @@ routes:
     target: http://katisha-user-service:3001
     auth: false
 
+  - path: /api/v1/users/docs
+    target: http://katisha-user-service:3001
+    auth: false
+
   - path: /api/v1/users
     target: http://katisha-user-service:3001
     auth: true
