@@ -42,3 +42,9 @@ routes:
   - path: /api/v1/organizations
     target: http://user-svc:8091
     auth: true
+
+  # ── Audit logs ───────────────────────────────────────────────────────────────
+  # Staff-only — the audit-service enforces this with its authorizeStaff middleware.
+  - path: /api/v1/audit-logs
+    target: http://audit-svc:8101
+    auth: true
