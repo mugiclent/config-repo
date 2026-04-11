@@ -49,6 +49,15 @@ routes:
     target: http://user-svc:8091
     auth: true
 
+  # ── Roles & Permissions ───────────────────────────────────────────────────────
+  - path: /api/v1/roles
+    target: http://user-svc:8091
+    auth: true
+
+  - path: /api/v1/permissions
+    target: http://user-svc:8091
+    auth: true
+
   # ── Audit logs ───────────────────────────────────────────────────────────────
   # Staff-only — the audit-service enforces this with its authorizeStaff middleware.
   - path: /api/v1/audit-logs
