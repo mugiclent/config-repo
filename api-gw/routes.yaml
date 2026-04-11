@@ -1,14 +1,18 @@
 routes:
   # ── Auth ─────────────────────────────────────────────────────────────────────
-  # /logout-all requires a valid JWT to identify the user — must come before the
-  # broad /auth block so it is not skipped by auth: false.
+  # These auth sub-routes require a valid JWT — must come before the broad
+  # /auth block so they are not skipped by auth: false.
   - path: /api/v1/auth/logout-all
+    target: http://user-svc:8091
+    auth: true
+
+  - path: /api/v1/auth/register-device
     target: http://user-svc:8091
     auth: true
 
   # All other auth endpoints are public — clients hit these before they have a token.
   # Covers: /login, /register, /verify-phone, /verify-2fa, /forgot-password,
-  #         /reset-password, /refresh, /logout, /register-device,
+  #         /reset-password, /refresh, /logout,
   #         /accept-invite (also used by unauthenticated invited users)
   - path: /api/v1/auth
     target: http://user-svc:8091
