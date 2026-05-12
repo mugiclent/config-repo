@@ -66,6 +66,41 @@ routes:
     target: http://user-svc:8091
     auth: false
 
+  # ── Trip service ─────────────────────────────────────────────────────────────
+  # Stops and prices are public (passengers browse without logging in).
+  # Trips search is public; booking and management require auth.
+  - path: /api/v1/locations
+    target: http://trip-svc:8092
+    auth: false
+
+  - path: /api/v1/prices
+    target: http://trip-svc:8092
+    auth: false
+
+  - path: /api/v1/trips/docs
+    target: http://trip-svc:8092
+    auth: false
+
+  - path: /api/v1/trips
+    target: http://trip-svc:8092
+    auth: true
+
+  - path: /api/v1/routes
+    target: http://trip-svc:8092
+    auth: true
+
+  - path: /api/v1/buses
+    target: http://trip-svc:8092
+    auth: true
+
+  - path: /api/v1/tickets
+    target: http://trip-svc:8092
+    auth: true
+
+  - path: /api/v1/driver
+    target: http://trip-svc:8092
+    auth: true
+
   # ── Audit logs ───────────────────────────────────────────────────────────────
   # Staff-only — the audit-service enforces this with its authorizeStaff middleware.
   - path: /api/v1/audit-logs
