@@ -106,3 +106,11 @@ routes:
   - path: /api/v1/audit-logs
     target: http://audit-svc:8101
     auth: true
+
+  # ── Payment service ───────────────────────────────────────────────────────────
+  # Webhook callback from FDI (and future providers) — no JWT, public.
+  # Route: POST /webhooks/payment/callback?provider=<name>
+  # The ?provider= query param is forwarded as-is to payment-svc for dispatch.
+  - path: /webhooks/payment/callback
+    target: http://payment-svc:8099
+    auth: false
