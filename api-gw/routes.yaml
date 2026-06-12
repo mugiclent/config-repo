@@ -67,15 +67,18 @@ routes:
     auth: false
 
   # ── Trip service ─────────────────────────────────────────────────────────────
-  # Stops and prices are public (passengers browse without logging in).
-  # Trips search is public; booking and management require auth.
+  # Locations, prices, trips and routes are public to browse (passengers need no
+  # account). They use auth: optional so a logged-in staff member's JWT is still
+  # translated for mutations (create/edit/cancel/fork), while anonymous reads pass
+  # through; trip-svc enforces auth on every write. Spoofed identity headers are
+  # stripped by the gateway, so anonymous requests can never impersonate.
   - path: /api/v1/locations
     target: http://trip-svc:8092
-    auth: false
+    auth: optional
 
   - path: /api/v1/prices
     target: http://trip-svc:8092
-    auth: false
+    auth: optional
 
   - path: /api/v1/trips/docs
     target: http://trip-svc:8092
@@ -83,11 +86,11 @@ routes:
 
   - path: /api/v1/trips
     target: http://trip-svc:8092
-    auth: true
+    auth: optional
 
   - path: /api/v1/routes
     target: http://trip-svc:8092
-    auth: true
+    auth: optional
 
   - path: /api/v1/buses
     target: http://trip-svc:8092
