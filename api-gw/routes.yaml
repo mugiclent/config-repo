@@ -96,9 +96,14 @@ routes:
     target: http://trip-svc:8092
     auth: true
 
+  # Booking is public: unauthenticated passengers pay by mobile money (mtn/airtel),
+  # logged-in passengers pay by wallet, and org agents sell cash tickets. auth: optional
+  # translates a JWT when present (so wallet/cash callers are identified) while letting
+  # anonymous momo bookings through. trip-svc enforces identity per payment method, and
+  # the protected sub-routes (/me, /:id, cancel, validate, list) authenticate in-service.
   - path: /api/v1/tickets
     target: http://trip-svc:8092
-    auth: true
+    auth: optional
 
   - path: /api/v1/driver
     target: http://trip-svc:8092
