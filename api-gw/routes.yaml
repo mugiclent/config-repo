@@ -49,6 +49,13 @@ routes:
     auth: false
 
   # ── Organisations ─────────────────────────────────────────────────────────────
+  # Public directory of active organisations (name/logo/story) — passengers browse
+  # operators with no account. Must come before /organizations so the broader
+  # auth: true entry never gates it (first-match-wins prefix matching).
+  - path: /api/v1/organizations/public
+    target: http://user-svc:8091
+    auth: false
+
   - path: /api/v1/organizations
     target: http://user-svc:8091
     auth: true
