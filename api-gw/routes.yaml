@@ -103,6 +103,12 @@ routes:
     target: http://trip-svc:8092
     auth: true
 
+  # Staff-only dashboard metrics; trip-svc enforces read:Report and derives org vs
+  # platform scope from the caller's rules.
+  - path: /api/v1/analytics
+    target: http://trip-svc:8092
+    auth: true
+
   # Booking is public: unauthenticated passengers pay by mobile money (mtn/airtel),
   # logged-in passengers pay by wallet, and org agents sell cash tickets. auth: optional
   # translates a JWT when present (so wallet/cash callers are identified) while letting
